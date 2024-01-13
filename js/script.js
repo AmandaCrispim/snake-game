@@ -1,16 +1,28 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+const h1 = document.querySelector('h1')
+
+const audio = new Audio ('../snake-game/assets/audio.mp3')
+
 const size = 30
 
-const snake = [
-    { x: 200, y: 200},
-    { x: 230, y: 200}
-]
+const snake = [{ x: 270, y: 240}]
+
+const randomNumber = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min)
+}
+
+const randomPosition = () => {
+     const number = randomNumber(0, canvas.width - size)
+     return Math.round(number / 30) * 30
+}
+
+h1.innerText = randomNumber(5, 10)
 
 const food = {
-    x: 90,
-    y: 90,
+    x: randomPosition(),
+    y: randomPosition(),
     color: "red"
 }
 
@@ -27,7 +39,7 @@ const drawFood = () => {
 }
 
 const drawSnake = () => {
-    ctx.fillStyle = '#ddd'
+    ctx.fillStyle = '#'
     
     snake.forEach((position, index) => {
 
@@ -82,6 +94,26 @@ const drawGrid = () => {
     
 }
 
+const checkEat = () => {
+    const head = snake[snake.length - 1]
+
+    if (head.x == food.x && head.y == food.y) {
+        snake.push(head)
+
+        audio.play 
+
+        let x = randomPosition()
+        let y = randomPosition()
+
+        while (snake.find((position) => position.x == x && position.y == y)) {
+             x = randomPosition()
+             y = randomPosition()
+        }  
+        food.x = x  
+        food.y = y  
+    }
+}
+
 drawGrid()
 
 const gameLoop = () => {
@@ -91,6 +123,7 @@ const gameLoop = () => {
     drawFood()
     moveSnake()
     drawSnake()
+    checkEat()
 
     let LoopId = setTimeout(() => {
         gameLoop()
