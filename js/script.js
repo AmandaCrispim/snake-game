@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d')
 
 const h1 = document.querySelector('h1')
 
-const audio = new Audio ('../snake-game/assets/audio.mp3')
+const audio = new Audio('/workspaces/snake-game/assets/audio.mp3')
 
 const size = 30
 
@@ -99,8 +99,7 @@ const checkEat = () => {
 
     if (head.x == food.x && head.y == food.y) {
         snake.push(head)
-
-        audio.play 
+        audio.play()
 
         let x = randomPosition()
         let y = randomPosition()
@@ -109,9 +108,31 @@ const checkEat = () => {
              x = randomPosition()
              y = randomPosition()
         }  
+
         food.x = x  
         food.y = y  
     }
+}
+
+const checkCollision = () => {
+    const head = snake[snake.length - 1]
+    const canvasLimit = canvas.width - size
+    const neckIndex = snake.length - 2
+
+    const wallCollision = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit
+
+    const selfCollision = snake.find((positon, index) => {
+        return index < neckIndex && positon.x == head.x && positon.y == head.y
+    })
+
+
+    if (wallCollision || selfCollision) {
+       alert("Você perdeu!") 
+    }
+}
+
+const gameOver = () => {
+    direction = undefined
 }
 
 drawGrid()
@@ -124,6 +145,7 @@ const gameLoop = () => {
     moveSnake()
     drawSnake()
     checkEat()
+    checkCollision()
 
     let LoopId = setTimeout(() => {
         gameLoop()
