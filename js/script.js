@@ -1,13 +1,21 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-const h1 = document.querySelector('h1')
+const score = document.querySelector('.score-value')
+const finalScore = document.querySelector('.final-value > span')
+const menu = document.querySelector('.menu-screen')
+const buttonPlay = document.querySelector('.btn-play')
 
 const audio = new Audio('/workspaces/snake-game/assets/audio.mp3')
 
 const size = 30
 
-const snake = [{ x: 270, y: 240}]
+const initialPosition = { x: 270, y: 240}
+let snake = [initialPosition]
+
+const incrementScore = () => {
+    score.innerText =+ score.innerText + 10
+}
 
 const randomNumber = (min, max) => {
     return Math.round(Math.random() * (max - min) + min)
@@ -17,8 +25,6 @@ const randomPosition = () => {
      const number = randomNumber(0, canvas.width - size)
      return Math.round(number / 30) * 30
 }
-
-h1.innerText = randomNumber(5, 10)
 
 const food = {
     x: randomPosition(),
@@ -98,6 +104,7 @@ const checkEat = () => {
     const head = snake[snake.length - 1]
 
     if (head.x == food.x && head.y == food.y) {
+        incrementScore()
         snake.push(head)
         audio.play()
 
@@ -127,12 +134,16 @@ const checkCollision = () => {
 
 
     if (wallCollision || selfCollision) {
-       alert("Você perdeu!") 
+       gameOver()
     }
 }
 
 const gameOver = () => {
     direction = undefined
+
+    menu.style.display = 'flex'
+    finalScore.innerText = score.innerText
+    canvas.style.filter = 'blur(2px)'
 }
 
 drawGrid()
@@ -147,7 +158,7 @@ const gameLoop = () => {
     checkEat()
     checkCollision()
 
-    let LoopId = setTimeout(() => {
+    loopId = setTimeout(() => {
         gameLoop()
     }, 300)
 }
@@ -172,4 +183,12 @@ document.addEventListener('keydown', ({ key} ) => {
     if (key == "ArrowUp" && direction != "down") {
         direction = "up"
     }
+})
+
+document.addEventListener('click', () => {
+    score.innerText = '00'
+    menu.style.display = 'none'
+    canvas.style.filter = 'none'
+
+    snake = [initialPosition]
 })
