@@ -6,11 +6,11 @@ const finalScore = document.querySelector('.final-value > span')
 const menu = document.querySelector('.menu-screen')
 const buttonPlay = document.querySelector('.btn-play')
 
-const audio = new Audio('/workspaces/snake-game/assets/audio.mp3')
+const audio = new Audio("../assets/audio.mp3")
 
 const size = 30
 
-const initialPosition = { x: 270, y: 240}
+const initialPosition = { x: 270, y: 240 }
 let snake = [initialPosition]
 
 const incrementScore = () => {
@@ -112,9 +112,9 @@ const checkEat = () => {
         let y = randomPosition()
 
         while (snake.find((position) => position.x == x && position.y == y)) {
-             x = randomPosition()
-             y = randomPosition()
-        }  
+            x = randomPosition()
+            y = randomPosition()
+        }
 
         food.x = x  
         food.y = y  
@@ -146,10 +146,11 @@ const gameOver = () => {
     canvas.style.filter = 'blur(2px)'
 }
 
-drawGrid()
+drawGrid() //linhas de marcação
 
 const gameLoop = () => {
     clearInterval(loopId)
+
     ctx.clearRect(0, 0, 600, 600)
     drawGrid()
     drawFood()
@@ -185,7 +186,7 @@ document.addEventListener('keydown', ({ key} ) => {
     }
 })
 
-document.addEventListener('click', () => {
+buttonPlay.addEventListener('click', () => {
     score.innerText = '00'
     menu.style.display = 'none'
     canvas.style.filter = 'none'
