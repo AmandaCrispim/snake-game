@@ -1,6 +1,7 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+
 const audio = new Audio("../assets/audio.mp3")
 
 const size = 30
@@ -18,7 +19,7 @@ const randomNumber = (min, max) => {
 
 const randomPosition = () => {
     const number = randomNumber(0, canvas.width - size)
-    return Math.round(number / 30) * 30
+    return Math.round(number / size) * size
 }
 
 const food = {
@@ -32,8 +33,6 @@ let direction, loopId
 const drawFood = () => {
     const { x, y, color} = food
 
-    ctx.shadowColor = "orange"
-    ctx.shadowBlur = 30
     ctx.fillStyle = food.color
     ctx.fillRect(food.x, food.y, size, size)
     ctx.shadowBlur = 0
