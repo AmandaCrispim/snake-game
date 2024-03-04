@@ -5,6 +5,7 @@ const score = document.querySelector('.score-value')
 const finalScore = document.querySelector('.final-score > span')
 const menu = document.querySelector('.menu-screen')
 const buttonPlay = document.querySelector('.btn-play')
+const buttonStart = document.querySelector('.btn-game-start')
 
 const audio = new Audio("../assets/audio.mp3")
 
@@ -191,4 +192,8 @@ buttonPlay.addEventListener('click', () => {
     canvas.style.filter = 'none'
 
     snake = [initialPosition]
+})
+
+buttonStart.addEventListener('click', () => {
+    window.location.href = '../index.html'
 })
