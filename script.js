@@ -90,8 +90,7 @@ const checkEat = () => {
 
         food.x = x
         food.y = y
-
-        // Em vez de remover a cabeça da cobra, adicione uma nova parte ao seu corpo
+        
         snake.push({ x: head.x, y: head.y })
     }
 }
