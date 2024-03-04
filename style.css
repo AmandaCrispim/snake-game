@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #191919;
+    display: flex;
+}
+
+.start {
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#btn-start{
+    padding: 15px 30px;
+    font-size: 32px;
+    border: 0;
+    border-radius: 15px;
+    color: white;
+    font-weight: 400;
+    background: linear-gradient(to right, rgb(48, 219, 71), rgb(14, 131, 43));
+    cursor: pointer; 
+}
+
+button:hover{
+    animation-name: btn-hover;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes btn-hover{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.05);
+    }
+
+}
