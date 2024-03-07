@@ -31,12 +31,12 @@ const food = {
 let direction, loopId 
 
 const drawFood = () => {
-    const { x, y, color} = food
+    const { x, y, color } = food;
 
-    ctx.fillStyle = food.color
-    ctx.fillRect(food.x, food.y, size, size)
-    ctx.shadowBlur = 0
-}
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, size, size);
+};
+
 
 const drawSnake = () => {
     ctx.fillStyle = "#ddd"
@@ -115,7 +115,6 @@ const checkCollision = () => {
         gameLoop()
     }
 }
-
 
 const findShortestPath = (start, end) => {
     const visited = new Set()
